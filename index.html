@@ -92,6 +92,18 @@
     });
   }
 
+  
+  const rankTiers = {"💎 Diamant": 5, "🥇 Gold": 4, "🥈 Silber": 3, "🥉 Bronze": 2, "🟤 Kreisliga B": 1, "🪵 Holz": 0};
+
+  function getRank(points) {
+    if (points >= 1500) return "💎 Diamant";
+    if (points >= 1300) return "🥇 Gold";
+    if (points >= 1100) return "🥈 Silber";
+    if (points >= 900)  return "🥉 Bronze";
+    if (points >= 700)  return "🟤 Kreisliga B";
+    return "🪵 Holz";
+  }
+
   function getRank(points) {
     if (points >= 1500) return "💎 Diamant";
     if (points >= 1300) return "🥇 Gold";
@@ -163,7 +175,15 @@
     let players = loadPlayers();
     const aPoints = players[playerA];
     const bPoints = players[playerB];
-    const diff = Math.abs(aPoints - bPoints);
+    
+    const aClass = rankTiers[getRank(aPoints)];
+    const bClass = rankTiers[getRank(bPoints)];
+
+    if (Math.abs(aClass - bClass) >= 2) {
+      alert("Match zählt nicht (zu großer Klassenunterschied)");
+      return;
+    }
+    
     let pointsA = 0, pointsB = 0;
 
     if (diff >= 200) {
@@ -171,7 +191,7 @@
       return;
     }
 
-    if (diff < 100) {
+    if (aClass === bClass) {
       pointsA = winner === playerA ? 20 : -20;
       pointsB = winner === playerB ? 20 : -20;
     } else if (aPoints > bPoints) {
