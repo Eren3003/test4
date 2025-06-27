@@ -178,23 +178,20 @@
     
     const aClass = rankTiers[getRank(aPoints)];
     const bClass = rankTiers[getRank(bPoints)];
+    const classDiff = Math.abs(aClass - bClass);
 
-    if (Math.abs(aClass - bClass) >= 2) {
+    if (classDiff >= 2) {
       alert("Match zählt nicht (zu großer Klassenunterschied)");
       return;
     }
-    
+
     let pointsA = 0, pointsB = 0;
-
-    if (diff >= 200) {
-      alert("Match zählt nicht (zu großer Klassenunterschied)");
-      return;
-    }
 
     if (aClass === bClass) {
       pointsA = winner === playerA ? 20 : -20;
       pointsB = winner === playerB ? 20 : -20;
-    } else if (aPoints > bPoints) {
+    } else if (aClass > bClass) {
+      // A ist in höherer Klasse
       if (winner === playerA) {
         pointsA = 10;
         pointsB = -10;
@@ -203,6 +200,7 @@
         pointsB = 30;
       }
     } else {
+      // B ist in höherer Klasse
       if (winner === playerB) {
         pointsB = 10;
         pointsA = -10;
@@ -211,7 +209,6 @@
         pointsA = 30;
       }
     }
-
     players[playerA] += pointsA;
     players[playerB] += pointsB;
     savePlayers(players);
