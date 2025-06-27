@@ -1,594 +1,265 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
   <title>Tennis Ranking</title>
-  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+      color: #222;
+    }
 
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #f4f4f4;
-    color: #222;
-  }
+    h1, h2, h3 {
+      color: #333;
+      margin-top: 20px;
+    }
 
-  h1, h2, h3 {
-    color: #333;
-    margin-top: 20px;
-  }
+    .container {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
 
-  .container {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-  }
+    .left, .right {
+      flex: 1;
+    }
 
-  .left, .right {
-    flex: 1;
-  }
+    form, .bonus-controls, .history {
+      margin-bottom: 30px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
 
-  form, .bonus-controls, .history {
-    margin-bottom: 30px;
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  }
+    input, select {
+      margin: 5px 0;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-  input, select {
-    margin: 5px 0;
-    padding: 8px;
-    width: 100%;
-    box-sizing: border-box;
-  }
+    button {
+      padding: 8px 14px;
+      margin: 6px 4px 0 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-  button {
-    padding: 8px 14px;
-    margin: 6px 4px 0 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
 
-  .btn-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-  }
+    .btn {
+      color: white;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
 
-  .btn {
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-weight: bold;
-  }
+    .plus { background-color: #28a745; }
+    .minus { background-color: #dc3545; }
 
-  .plus { background-color: #28a745; }
-  .minus { background-color: #dc3545; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    background: #fff;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    overflow: hidden;
-  }
+    th, td {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 12px;
+      text-align: left;
+    }
 
-  th, td {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 12px;
-    text-align: left;
-  }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
 
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+    th {
+      background-color: #eee;
+    }
 
-  th {
-    background-color: #eee;
-  }
+    ul {
+      padding-left: 20px;
+    }
 
-  ul {
-    padding-left: 20px;
-  }
-
-  li {
-    margin: 5px 0;
-    padding: 6px 0;
-    border-bottom: 1px dashed #ccc;
-  }
-</style>
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    li {
+      margin: 5px 0;
+      padding: 6px 0;
+      border-bottom: 1px dashed #ccc;
+    }
   </style>
 </head>
 <body>
-<div class="container"><div class="left">
-  <h1>Tennis Ranking</h1>
-
-  <form id="matchForm">
-    <label>Spieler A:
-      <select name="playerA" required>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option><option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Vale">Vale</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Vincent">Vincent</option>
-<option value="Alen">Alen</option>
-<option value="Dino">Dino</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Edo">Edo</option>
-<option value="Thomas">Thomas</option>
-<option value="Eren">Eren</option>
-<option value="Philip">Philip</option>
-<option value="Chris">Chris</option>
-<option value="Semmi">Semmi</option>
-<option value="Tomi">Tomi</option>
-<option value="Okan">Okan</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Kico">Kico</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Qerim">Qerim</option>
-<option value="Yigit Meral">Yigit Meral</option></select>
-    </label><br>
-    <label>Spieler B:
-      <select name="playerB" required>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option><option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Vale">Vale</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Vincent">Vincent</option>
-<option value="Alen">Alen</option>
-<option value="Dino">Dino</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Edo">Edo</option>
-<option value="Thomas">Thomas</option>
-<option value="Eren">Eren</option>
-<option value="Philip">Philip</option>
-<option value="Chris">Chris</option>
-<option value="Semmi">Semmi</option>
-<option value="Tomi">Tomi</option>
-<option value="Okan">Okan</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Kico">Kico</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Qerim">Qerim</option>
-<option value="Yigit Meral">Yigit Meral</option></select>
-    </label><br>
-    <label>Gewinner:
-      <select name="winner" required>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Alen">Alen</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Chris">Chris</option>
-<option value="Dino">Dino</option>
-<option value="Edo">Edo</option>
-<option value="Eren">Eren</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Kico">Kico</option>
-<option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Okan">Okan</option>
-<option value="Philip">Philip</option>
-<option value="Qerim">Qerim</option>
-<option value="Semmi">Semmi</option>
-<option value="Thomas">Thomas</option>
-<option value="Tomi">Tomi</option>
-<option value="Vale">Vale</option>
-<option value="Vincent">Vincent</option>
-<option value="Yigit Meral">Yigit Meral</option>
-<option value="Yusuf">Yusuf</option><option value="Luca">Luca</option>
-<option value="Marco">Marco</option>
-<option value="Vale">Vale</option>
-<option value="Gab">Gab</option>
-<option value="Julian">Julian</option>
-<option value="Vincent">Vincent</option>
-<option value="Alen">Alen</option>
-<option value="Dino">Dino</option>
-<option value="Cagdas">Cagdas</option>
-<option value="Edo">Edo</option>
-<option value="Thomas">Thomas</option>
-<option value="Eren">Eren</option>
-<option value="Philip">Philip</option>
-<option value="Chris">Chris</option>
-<option value="Semmi">Semmi</option>
-<option value="Tomi">Tomi</option>
-<option value="Okan">Okan</option>
-<option value="Yusuf">Yusuf</option>
-<option value="Kico">Kico</option>
-<option value="Bjarne">Bjarne</option>
-<option value="Qerim">Qerim</option>
-<option value="Yigit Meral">Yigit Meral</option></select>
-    </label><br>
-    <label>Satzverlauf (z. B. 6:4, 3:6, 7:5):
-      <input type="text" name="scoreDetail" placeholder="Sätze eingeben">
-    </label><br>
-    <button type="submit">Match eintragen</button>
-  </form>
-<div class="bonus-controls">
-  
-
-<div class="history">
-  
-
-<div class="bonus-controls">
-
+<div class="container">
+  <div class="left">
+    <h1>Tennis Ranking</h1>
+    <form id="matchForm">
+      <label>Spieler A:
+        <select name="playerA" id="playerA" required></select>
+      </label><br>
+      <label>Spieler B:
+        <select name="playerB" id="playerB" required></select>
+      </label><br>
+      <label>Gewinner:
+        <select name="winner" id="winner" required></select>
+      </label><br>
+      <label>Satzverlauf (z. B. 6:4, 3:6, 7:5):
+        <input type="text" name="scoreDetail" placeholder="Sätze eingeben">
+      </label><br>
+      <button type="submit">Match eintragen</button>
+    </form>
+    <div class="bonus-controls"></div>
+    <div class="history">
+      <ul id="matchHistoryList"></ul>
+    </div>
+  </div>
+  <div class="right">
+    <h2>Aktuelles Ranking</h2>
+    <table id="rankingTable">
+      <thead><tr><th>Spieler</th><th>Punkte</th><th>Rang</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </div>
-<div class="history">
+<script>
+  const defaultPlayers = {
+    "Luca": 1000, "Marco": 1000, "Vale": 1000, "Gab": 1000, "Julian": 1000, "Vincent": 1000, "Alen": 1000, "Dino": 1000,
+    "Cagdas": 1000, "Edo": 1000, "Thomas": 1000, "Eren": 1000, "Philip": 1000, "Chris": 1000, "Semmi": 1000, "Tomi": 1000,
+    "Okan": 1000, "Yusuf": 1000, "Kico": 1000, "Bjarne": 1000, "Qerim": 1000, "Yigit Meral": 1000
+  };
 
-</div>
+  const playerNames = Object.keys(defaultPlayers);
 
-  </div><div class="right"><h2>Aktuelles Ranking</h2>
-  <table id="rankingTable">
-    <thead><tr><th>Spieler</th><th>Punkte</th><th>Rang</th></tr></thead>
-    <tbody></tbody>
-  </table>
-
-  
-  <script>
-    const defaultPlayers = {
-      "Luca": 1000, "Marco": 1000, "Vale": 1000, "Gab": 1000, "Julian": 1000, "Vincent": 1000, "Alen": 1000, "Dino": 1000, "Cagdas": 1000, "Edo": 1000, "Thomas": 1000, "Eren": 1000, "Philip": 1000, "Chris": 1000, "Semmi": 1000, "Tomi": 1000, "Okan": 1000, "Yusuf": 1000, "Kico": 1000, "Bjarne": 1000, "Qerim": 1000, "Yigit Meral": 1000
-    };
-
-    function getRank(points) {
-      if (points >= 1500) return "💎 Diamant";
-      if (points >= 1300) return "🥇 Gold";
-      if (points >= 1100) return "🥈 Silber";
-      if (points >= 900)  return "🥉 Bronze";
-      if (points >= 700)  return "🟤 Kreisliga B";
-      return "🪵 Holz";
-    }
-
-    function loadPlayers() {
-      return JSON.parse(localStorage.getItem("players")) || { ...defaultPlayers };
-    }
-
-    function savePlayers(players) {
-      localStorage.setItem("players", JSON.stringify(players));
-    }
-
-    function updateRankingTable(players) {
-      const table = document.getElementById("rankingTable").querySelector("tbody");
-      table.innerHTML = "";
-      const sorted = Object.entries(players).sort((a, b) => b[1] - a[1]);
-      for (const [name, score] of sorted) {
-        const row = document.createElement("tr");
-        const rank = getRank(score);
-        row.innerHTML = `<td>${name}</td><td>${score}</td><td>${rank}</td>`;
-        table.appendChild(row);
-      }
-    }
-
-    function giveBonus(amount) {
-      const player = document.getElementById("bonusPlayer").value;
-      let players = loadPlayers();
-      players[player] += amount;
-      savePlayers(players);
-      updateRankingTable(players);
-      alert(`${player} erhält +${amount} Punkte`);
-    }
-
-    function saveMatchHistory(entry) {
-      const history = JSON.parse(localStorage.getItem("matchHistory")) || [];
-      history.unshift(entry);
-      localStorage.setItem("matchHistory", JSON.stringify(history));
-      updateMatchHistory();
-    }
-
-    function updateMatchHistory() {
-      const list = document.getElementById("matchHistoryList");
-      const history = JSON.parse(localStorage.getItem("matchHistory")) || [];
-      list.innerHTML = "";
-      for (const match of history.slice(0, 20)) {
-        const li = document.createElement("li");
-        li.textContent = `${match.winner} gewinnt gegen ${match.loser} (${match.score}) am ${match.date}`;
-        list.appendChild(li);
-      }
-    }
-
-    document.getElementById("matchForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const playerA = form.playerA.value;
-      const playerB = form.playerB.value;
-      const winner = form.winner.value;
-
-      if (playerA === playerB) {
-        alert("Spieler dürfen nicht gleich sein!");
-        return;
-      }
-
-      let players = loadPlayers();
-      const aPoints = players[playerA];
-      const bPoints = players[playerB];
-      const diff = Math.abs(aPoints - bPoints);
-      let pointsA = 0, pointsB = 0;
-
-      if (diff >= 200) {
-        alert("Match zählt nicht (zu großer Klassenunterschied)");
-        return;
-      }
-
-      if (diff < 100) {
-        pointsA = winner === playerA ? 20 : -20;
-        pointsB = winner === playerB ? 20 : -20;
-      } else if (aPoints > bPoints) {
-        pointsA = winner === playerA ? 10 : -10;
-        pointsB = winner === playerB ? 30 : -30;
-      } else {
-        pointsA = winner === playerA ? 30 : -30;
-        pointsB = winner === playerB ? 10 : -10;
-      }
-
-      players[playerA] += pointsA;
-      players[playerB] += pointsB;
-      savePlayers(players);
-      updateRankingTable(players);
-
-      const loser = winner === playerA ? playerB : playerA;
-      saveMatchHistory({ winner, loser, score: form.scoreDetail.value || "–", date: new Date().toLocaleString() });
-
-      alert("Match eingetragen!");
+  function populateSelects() {
+    const selects = [document.getElementById("playerA"), document.getElementById("playerB"), document.getElementById("winner")];
+    selects.forEach(select => {
+      select.innerHTML = "";
+      playerNames.forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        select.appendChild(option);
+      });
     });
+  }
 
-    updateRankingTable(loadPlayers());
+  function getRank(points) {
+    if (points >= 1500) return "💎 Diamant";
+    if (points >= 1300) return "🥇 Gold";
+    if (points >= 1100) return "🥈 Silber";
+    if (points >= 900)  return "🥉 Bronze";
+    if (points >= 700)  return "🟤 Kreisliga B";
+    return "🪵 Holz";
+  }
+
+  function loadPlayers() {
+    return JSON.parse(localStorage.getItem("players")) || { ...defaultPlayers };
+  }
+
+  function savePlayers(players) {
+    localStorage.setItem("players", JSON.stringify(players));
+  }
+
+  function updateRankingTable(players) {
+    const table = document.getElementById("rankingTable").querySelector("tbody");
+    table.innerHTML = "";
+    const sorted = Object.entries(players).sort((a, b) => b[1] - a[1]);
+    for (const [name, score] of sorted) {
+      const row = document.createElement("tr");
+      const rank = getRank(score);
+      row.innerHTML = `<td>${name}</td><td>${score}</td><td>${rank}</td>`;
+      table.appendChild(row);
+    }
+  }
+
+  function saveMatchHistory(entry) {
+    const history = JSON.parse(localStorage.getItem("matchHistory")) || [];
+    history.unshift(entry);
+    localStorage.setItem("matchHistory", JSON.stringify(history));
     updateMatchHistory();
-  </script>
+  }
+
+  function updateMatchHistory() {
+    const list = document.getElementById("matchHistoryList");
+    const history = JSON.parse(localStorage.getItem("matchHistory")) || [];
+    list.innerHTML = "";
+    for (const match of history.slice(0, 20)) {
+      const li = document.createElement("li");
+      li.textContent = `${match.winner} gewinnt gegen ${match.loser} (${match.score}) am ${match.date}`;
+      list.appendChild(li);
+    }
+  }
+
+  document.getElementById("matchForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const playerA = form.playerA.value;
+    const playerB = form.playerB.value;
+    const winner = form.winner.value;
+
+    if (playerA === playerB) {
+      alert("Spieler dürfen nicht gleich sein!");
+      return;
+    }
+
+    let players = loadPlayers();
+    const aPoints = players[playerA];
+    const bPoints = players[playerB];
+    const diff = Math.abs(aPoints - bPoints);
+    let pointsA = 0, pointsB = 0;
+
+    if (diff >= 200) {
+      alert("Match zählt nicht (zu großer Klassenunterschied)");
+      return;
+    }
+
+    if (diff < 100) {
+      pointsA = winner === playerA ? 20 : -20;
+      pointsB = winner === playerB ? 20 : -20;
+    } else if (aPoints > bPoints) {
+      if (winner === playerA) {
+        pointsA = 10;
+        pointsB = -10;
+      } else {
+        pointsA = -30;
+        pointsB = 30;
+      }
+    } else {
+      if (winner === playerB) {
+        pointsB = 10;
+        pointsA = -10;
+      } else {
+        pointsB = -30;
+        pointsA = 30;
+      }
+    }
+
+    players[playerA] += pointsA;
+    players[playerB] += pointsB;
+    savePlayers(players);
+    updateRankingTable(players);
+
+    const loser = winner === playerA ? playerB : playerA;
+    saveMatchHistory({ winner, loser, score: form.scoreDetail.value || "–", date: new Date().toLocaleString() });
+
+    alert("Match eingetragen!");
+  });
+
+  populateSelects();
+  updateRankingTable(loadPlayers());
+  updateMatchHistory();
+</script>
 </body>
 </html>
